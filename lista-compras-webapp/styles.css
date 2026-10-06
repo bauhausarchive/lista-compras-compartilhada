@@ -40,10 +40,12 @@
 .app-screen .note{display:none}
 .app-screen .account-line{display:none}
 @media(min-width:760px){
-  .app-screen{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.95fr);grid-template-areas:"intro list" "add list" "feedback feedback";column-gap:36px;align-content:start}
-  .app-screen .page-header{grid-area:intro;padding:8px 0 0}
+  .app-screen{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.95fr);grid-template-areas:"intro list" "feedback feedback";column-gap:36px;align-content:start;align-items:start}
+  .app-screen .app-layout{grid-area:intro;display:flex;flex-direction:column;align-items:stretch;gap:22px;min-width:0}
+  .app-screen .page-header{padding:8px 0 0}
   .app-screen .page-header h1{font-size:46px}
-  .app-screen .add-form{grid-area:add;align-self:start;margin:10px 0 0}
-  .app-screen>section[aria-labelledby="list-title"]{grid-area:list;margin:8px 0 0}
+  .app-screen .subtitle{margin-bottom:0}
+  .app-screen .add-form{margin:0}
+  .app-screen>section[aria-labelledby="list-title"]{grid-area:list;margin:8px 0 0;min-width:0}
   .app-screen .toast{grid-area:feedback}
 }
