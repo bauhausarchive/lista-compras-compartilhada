@@ -32,7 +32,7 @@
     <section class="app-screen" id="app-screen" hidden aria-labelledby="page-title">
       <header class="page-header">
         <div class="header-line">
-          <p class="eyebrow"><span class="status-dot" id="status-dot"></span><span class="visually-hidden" id="sync-status">Conectando</span></p>
+          <p class="visually-hidden" id="sync-status" role="status" aria-live="polite">Conectando</p><span class="visually-hidden" id="status-dot" aria-hidden="true"></span>
           <div class="header-actions">
             <button class="icon-button" id="theme-toggle" type="button" aria-label="Ativar tema escuro" aria-pressed="false">
               <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.2A8.4 8.4 0 0 1 8.8 3.8 8.6 8.6 0 1 0 20.2 15.2Z"/></svg>
@@ -53,12 +53,12 @@
 
       <section aria-labelledby="list-title">
         <div class="section-head">
-          <div><h2 id="list-title">Sua lista</h2><p class="account-line" id="account-email"></p></div>
+          <div><h2 id="list-title">Sua lista</h2><p class="visually-hidden" id="account-email"></p></div>
           <span class="item-count" id="count">0 itens</span>
         </div>
         <ul class="list" id="list" aria-live="polite"></ul>
         <div class="list-tools">
-          <span class="progress" id="progress">0 comprados</span>
+          <span class="visually-hidden" id="progress">0 comprados</span>
           <div class="tool-buttons">
             <button class="text-button" id="import-open" type="button">Adicionar vários</button>
             <button class="text-button" id="export-list" type="button">Exportar</button>
@@ -66,7 +66,6 @@
           </div>
         </div>
       </section>
-      <p class="note">Compartilhada e atualizada automaticamente. Precisa de internet para sincronizar.</p>
       <p class="feedback toast" id="app-feedback" role="status" aria-live="polite"></p>
     </section>
   </main>
