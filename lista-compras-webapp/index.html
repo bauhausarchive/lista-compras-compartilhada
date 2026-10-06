@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f2f2f7">
+  <meta name="description" content="Lista de compras compartilhada da casa.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Compras">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>Lista de compras</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <section class="auth-screen" id="auth-screen" aria-labelledby="auth-title">
+      <div class="brand-mark" aria-hidden="true">✓</div>
+      <p class="eyebrow">COMPRAS DA CASA</p>
+      <h1 id="auth-title">A lista de vocês,<br>sempre em dia.</h1>
+      <p class="auth-copy">Entre com a conta Google autorizada para ver e atualizar a mesma lista no celular e no computador.</p>
+      <button class="google-button" id="google-sign-in" type="button">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.89c-.58 2.96-2.26 5.48-4.72 7.18l7.62 5.91c4.45-4.1 7.19-10.14 7.19-17.56Z"/><path fill="#FBBC05" d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.75-4.59l-7.98-6.2A23.9 23.9 0 0 0 0 24c0 3.89.93 7.57 2.56 10.78l7.97-6.19Z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.9-5.89l-7.62-5.91c-2.12 1.42-4.84 2.27-8.28 2.27-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48Z"/></svg>
+        <span>Continuar com Google</span>
+      </button>
+      <p class="auth-notice">O acesso fica limitado aos e-mails autorizados da casa.</p>
+      <p class="feedback" id="auth-feedback" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="app-screen" id="app-screen" hidden aria-labelledby="page-title">
+      <header class="page-header">
+        <div class="header-line">
+          <p class="eyebrow"><span class="status-dot" id="status-dot"></span><span id="sync-status">Conectando</span></p>
+          <div class="header-actions">
+            <button class="icon-button" id="theme-toggle" type="button" aria-label="Ativar tema escuro" aria-pressed="false">
+              <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.2A8.4 8.4 0 0 1 8.8 3.8 8.6 8.6 0 1 0 20.2 15.2Z"/></svg>
+            </button>
+            <button class="icon-button" id="sign-out" type="button" aria-label="Sair da conta" title="Sair">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></svg>
+            </button>
+          </div>
+        </div>
+        <h1 id="page-title">Lista de compras</h1>
+        <p class="subtitle">O que um adiciona, aparece para o outro.</p>
+      </header>
+
+      <form class="add-form" id="add-form" autocomplete="off">
+        <input id="new-item" type="text" placeholder="Adicionar um item" aria-label="Novo item" maxlength="120">
+        <button class="add-button" type="submit" aria-label="Adicionar item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+      </form>
+
+      <section aria-labelledby="list-title">
+        <div class="section-head">
+          <div><h2 id="list-title">Sua lista</h2><p class="account-line" id="account-email"></p></div>
+          <span class="item-count" id="count">0 itens</span>
+        </div>
+        <ul class="list" id="list" aria-live="polite"></ul>
+        <div class="list-tools">
+          <span class="progress" id="progress">0 comprados</span>
+          <div class="tool-buttons">
+            <button class="text-button" id="import-open" type="button">Adicionar vários</button>
+            <button class="text-button" id="export-list" type="button">Exportar</button>
+            <button class="text-button clear-button" id="clear-done" type="button" hidden>Apagar comprados</button>
+          </div>
+        </div>
+      </section>
+      <p class="note">Compartilhada e atualizada automaticamente. Precisa de internet para sincronizar.</p>
+      <p class="feedback toast" id="app-feedback" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <dialog class="import-dialog" id="import-dialog" aria-labelledby="import-title">
+    <form method="dialog" class="dialog-close-row"><button class="icon-button" aria-label="Fechar">×</button></form>
+    <h2 id="import-title">Adicionar vários itens</h2>
+    <p>Cole ou digite um item por linha. Já dá para usar isso para trazer itens da lista antiga.</p>
+    <textarea id="bulk-items" rows="8" placeholder="Leite&#10;Pão&#10;Frutas" aria-label="Itens, um por linha"></textarea>
+    <div class="dialog-actions"><button class="secondary-button" id="cancel-import" type="button">Cancelar</button><button class="primary-button" id="import-submit" type="button">Adicionar à lista</button></div>
+  </dialog>
+
+  <script>
+    (() => {
+      const key = 'lista-tema-v1';
+      const button = document.getElementById('theme-toggle');
+      const icon = document.getElementById('theme-icon');
+      const meta = document.querySelector('meta[name="theme-color"]');
+      function setTheme(theme) {
+        const dark = theme === 'dark';
+        if (dark) document.documentElement.dataset.theme = 'dark';
+        else delete document.documentElement.dataset.theme;
+        button.setAttribute('aria-pressed', String(dark));
+        button.setAttribute('aria-label', dark ? 'Ativar tema claro' : 'Ativar tema escuro');
+        icon.innerHTML = dark
+          ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>'
+          : '<path d="M20.2 15.2A8.4 8.4 0 0 1 8.8 3.8 8.6 8.6 0 1 0 20.2 15.2Z"/>';
+        meta.setAttribute('content', dark ? '#111113' : '#f2f2f7');
+        try { localStorage.setItem(key, theme); } catch {}
+      }
+      let theme = 'light';
+      try { theme = localStorage.getItem(key) || 'light'; } catch {}
+      setTheme(theme);
+      button.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
+    })();
+  </script>
+</body>
+</html>
